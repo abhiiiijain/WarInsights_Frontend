@@ -21,53 +21,51 @@ axiosInstance.interceptors.request.use(
   }
 );
 
+// Example API calls using axios:
+
 export const registerUser = async (userData) => {
-  const response = await fetch(`${BASE_URL}/register`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(userData),
-  });
-  const data = await response.json();
-  if (!response.ok) throw new Error(data.msg || 'Registration failed');
-  return data;
+  try {
+    const response = await axiosInstance.post('/register', userData);
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response?.data?.msg || 'Registration failed');
+  }
 };
 
 export const loginUser = async (credentials) => {
-  const response = await fetch(`${BASE_URL}/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(credentials),
-  });
-  const data = await response.json();
-  if (!response.ok) throw new Error(data.msg || 'Login failed');
-  return data;
+  try {
+    const response = await axiosInstance.post('/login', credentials);
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response?.data?.msg || 'Login failed');
+  }
 };
 
 export const fetchWarlog = async (clanTag) => {
-  const response = await fetch(`${BASE_URL}/warlog`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ clanTag }),
-  });
-  const data = await response.json();
-  if (!response.ok) throw new Error(data.error || 'Failed to fetch warlog');
-  return data;
+  try {
+    const response = await axiosInstance.post('/warlog', { clanTag });
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response?.data?.error || 'Failed to fetch warlog');
+  }
 };
 
 export const updateRole = async (userId, role) => {
-  const token = localStorage.getItem('token');
-  const response = await axios.post(
-    `${BASE_URL}/update-role`,
-    { userId, role },
-    { headers: { 'x-auth-token': token } }
-  );
-  return response.data;
+  try {
+    const response = await axiosInstance.post('/update-role', { userId, role });
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response?.data?.msg || 'Failed to update role');
+  }
 };
 
-// Example API call to get the user profile
 export const getUserProfile = async () => {
-  const response = await axiosInstance.get('/profile');
-  return response.data;
+  try {
+    const response = await axiosInstance.get('/profile');
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response?.data?.msg || 'Failed to fetch user profile');
+  }
 };
 
 export default axiosInstance;
