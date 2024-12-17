@@ -30,3 +30,13 @@ button {
   margin: 10px 0;
   border-radius: 5px;
 }
+
+.App {
+  text-align: center;
+  margin: 20px;
+}
+
+input, select, button {
+  margin: 10px;
+  padding: 8px;
+}
