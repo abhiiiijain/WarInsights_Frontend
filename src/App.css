@@ -1,42 +1,43 @@
+/* App.css */
 .App {
-  text-align: center;
   font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
 }
 
 input {
   padding: 10px;
-  font-size: 16px;
-  margin-right: 10px;
+  margin: 5px;
+  width: 200px;
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-.error {
-  color: red;
-  margin-top: 10px;
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.warlog {
-  margin-top: 20px;
-  text-align: left;
-}
-
-.war {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-}
-
-.App {
-  text-align: center;
-  margin: 20px;
-}
-
-input, select, button {
-  margin: 10px;
-  padding: 8px;
+.register-page, .login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto;
+  width: 300px;
 }

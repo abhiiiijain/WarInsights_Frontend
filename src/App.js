@@ -5,10 +5,11 @@ import WarlogCard from './components/WarlogCard';
 import { fetchWarlog } from './api';
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [clanTag, setClanTag] = useState('');
-  const [warlog, setWarlog] = useState([]);
-  const [error, setError] = useState('');
+  const [user, setUser] = useState(null);   // User state to store logged-in user
+  const [clanTag, setClanTag] = useState('');  // Clan tag to fetch warlog
+  const [warlog, setWarlog] = useState([]);    // Store fetched warlog
+  const [error, setError] = useState('');      // Handle errors
+  const [isRegistering, setIsRegistering] = useState(false);  // Toggle between register and login
 
   const handleFetchWarlog = async () => {
     try {
@@ -19,12 +20,27 @@ function App() {
     }
   };
 
+  const handleLoginSuccess = (user) => {
+    setUser(user); // Set user after successful login
+  };
+
+  const handleLoginFailure = () => {
+    setIsRegistering(true); // Switch to register if login fails
+  };
+
+  const toggleRegister = () => {
+    setIsRegistering((prev) => !prev);  // Toggle between login and register
+  };
+
   return (
     <div className="App">
       {!user ? (
         <>
-          <Login onLogin={(user) => setUser(user)} />
-          <Register />
+          {!isRegistering ? (
+            <Login onLogin={handleLoginSuccess} onLoginFailure={handleLoginFailure} toggleRegister={toggleRegister} />
+          ) : (
+            <Register toggleRegister={toggleRegister} />
+          )}
         </>
       ) : (
         <>
