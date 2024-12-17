@@ -9,6 +9,7 @@ function App() {
   const [clanTag, setClanTag] = useState('');
   const [warlog, setWarlog] = useState([]);
   const [error, setError] = useState('');
+  const [isRegistering, setIsRegistering] = useState(false); // Manage register state
 
   const handleFetchWarlog = async () => {
     try {
@@ -19,12 +20,27 @@ function App() {
     }
   };
 
+  const handleLoginSuccess = (user) => {
+    setUser(user); // Set the authenticated user
+  };
+
+  const handleLoginFailure = () => {
+    setIsRegistering(true); // Show register if login fails
+  };
+
+  const toggleRegister = () => {
+    setIsRegistering((prev) => !prev); // Toggle between login and register form
+  };
+
   return (
     <div className="App">
       {!user ? (
         <>
-          <Login onLogin={(user) => setUser(user)} />
-          <Register />
+          {!isRegistering ? (
+            <Login onLogin={handleLoginSuccess} onLoginFailure={handleLoginFailure} toggleRegister={toggleRegister} />
+          ) : (
+            <Register toggleRegister={toggleRegister} />
+          )}
         </>
       ) : (
         <>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { registerUser } from '../api';
 
-const Register = () => {
+const Register = ({ toggleRegister }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -52,6 +52,7 @@ const Register = () => {
         </select>
         <button type="submit">Register</button>
       </form>
+      <button onClick={toggleRegister}>Already have an account? Login here</button> {/* Toggle login form */}
     </div>
   );
 };
