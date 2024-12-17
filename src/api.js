@@ -1,4 +1,25 @@
+import axios from 'axios';
+import { getToken } from './utils/auth';  // Utility to get JWT
+
 const BASE_URL = 'http://localhost:5000/api';
+
+// Create an axios instance to include the token in headers
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
+});
+
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = getToken();
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;  // Attach token to headers
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export const registerUser = async (userData) => {
   const response = await fetch(`${BASE_URL}/register`, {
@@ -32,3 +53,21 @@ export const fetchWarlog = async (clanTag) => {
   if (!response.ok) throw new Error(data.error || 'Failed to fetch warlog');
   return data;
 };
+
+export const updateRole = async (userId, role) => {
+  const token = localStorage.getItem('token');
+  const response = await axios.post(
+    `${BASE_URL}/update-role`,
+    { userId, role },
+    { headers: { 'x-auth-token': token } }
+  );
+  return response.data;
+};
+
+// Example API call to get the user profile
+export const getUserProfile = async () => {
+  const response = await axiosInstance.get('/profile');
+  return response.data;
+};
+
+export default axiosInstance;

@@ -16,8 +16,10 @@ const Login = ({ onLogin }) => {
     setError('');
     try {
       const response = await loginUser(credentials);
+      console.log(response);
+      
       setToken(response.token);
-      onLogin(response.user);
+      onLogin(response.user);  // Pass the user data including the role
     } catch (err) {
       setError(err.message);
     }
