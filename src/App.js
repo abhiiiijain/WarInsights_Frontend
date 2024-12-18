@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import Register from './components/Register';
-import Login from './components/Login';
-import WarlogCard from './components/WarlogCard';
-import ClanList from './components/ClanList';
-import { fetchWarlog } from './api';
+import React, { useState } from "react";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import WarlogCard from "./components/WarlogCard";
+import ClanList from "./components/ClanList";
+import { fetchWarlog } from "./api";
 
 function App() {
-  const [user, setUser] = useState(null);   // User state to store logged-in user
-  const [clanTag, setClanTag] = useState('');  // Clan tag to fetch warlog
-  const [warlog, setWarlog] = useState([]);    // Store fetched warlog
-  const [error, setError] = useState('');      // Handle errors
-  const [isRegistering, setIsRegistering] = useState(false);  // Toggle between register and login
+  const [user, setUser] = useState(null);
+  const [clanTag, setClanTag] = useState("");
+  const [warlog, setWarlog] = useState([]);
+  const [error, setError] = useState("");
+  const [isRegistering, setIsRegistering] = useState(false);
 
   const handleFetchWarlog = async () => {
     try {
@@ -22,15 +22,15 @@ function App() {
   };
 
   const handleLoginSuccess = (user) => {
-    setUser(user); // Set user after successful login
+    setUser(user);
   };
 
   const handleLoginFailure = () => {
-    setIsRegistering(true); // Switch to register if login fails
+    setIsRegistering(true);
   };
 
   const toggleRegister = () => {
-    setIsRegistering((prev) => !prev);  // Toggle between login and register
+    setIsRegistering((prev) => !prev);
   };
 
   return (
@@ -38,7 +38,11 @@ function App() {
       {!user ? (
         <>
           {!isRegistering ? (
-            <Login onLogin={handleLoginSuccess} onLoginFailure={handleLoginFailure} toggleRegister={toggleRegister} />
+            <Login
+              onLogin={handleLoginSuccess}
+              onLoginFailure={handleLoginFailure}
+              toggleRegister={toggleRegister}
+            />
           ) : (
             <Register toggleRegister={toggleRegister} />
           )}
@@ -46,7 +50,7 @@ function App() {
       ) : (
         <>
           <h1>Welcome, {user.name}</h1>
-          <ClanList /> {/* Display the list of clans */}
+          <ClanList />
           <input
             type="text"
             placeholder="Enter Clan Tag (e.g., #2PP)"
@@ -55,7 +59,7 @@ function App() {
           />
           <button onClick={handleFetchWarlog}>Fetch Warlog</button>
 
-          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {error && <p style={{ color: "red" }}>{error}</p>}
 
           <div>
             {warlog.map((war, index) => (
