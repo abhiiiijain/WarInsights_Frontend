@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Register from './components/Register';
 import Login from './components/Login';
 import WarlogCard from './components/WarlogCard';
+import ClanList from './components/ClanList';
 import { fetchWarlog } from './api';
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
       ) : (
         <>
           <h1>Welcome, {user.name}</h1>
+          <ClanList /> {/* Display the list of clans */}
           <input
             type="text"
             placeholder="Enter Clan Tag (e.g., #2PP)"
