@@ -68,4 +68,15 @@ export const getUserProfile = async () => {
   }
 };
 
+// Fetch the list of clan tags
+export const fetchClanTags = async () => {
+  try {
+    const response = await axiosInstance.get('/clantags');
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response?.data?.error || 'Failed to fetch clan tags');
+  }
+};
+
+
 export default axiosInstance;
