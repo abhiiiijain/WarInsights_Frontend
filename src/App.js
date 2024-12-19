@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BrowserRouter , Route, Routes } from "react-router-dom";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import WarlogCard from "./components/WarlogCard";
@@ -50,7 +51,11 @@ function App() {
       ) : (
         <>
           <h1>Welcome, {user.name}</h1>
-          <ClanList />
+          <BrowserRouter>
+          <Routes>
+            <Route path="/clanlist" element={<ClanList />} />
+          </Routes>
+          </BrowserRouter>
           <input
             type="text"
             placeholder="Enter Clan Tag (e.g., #2PP)"
